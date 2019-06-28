@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import form_field %}
+
+{% macro pagination_widget(pagination, endpoint, fragment='') %}
+<div class="pagination">
+    <ul class="pagination">
+    <li {% if not pagination.has_prev %} class="disabled"{% endif %}>
+        <a href="{% if pagination.has_prev %}{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+            &laquo;
+        </a>
+    </li>
+    {% for p in pagination.iter_pages() %}
+        {% if p %}
+            {% if p == pagination.page %}
+            <li class="active">
+                <a href=" ">{{ p }}</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for(request.endpoint, page = p, **kwargs) }}{{ fragment }}">{{ p }}</a>
+            </li>
+            {% endif %}
+        {% else %}
+        <li class="disabled"><a href="#">&hellip;</a></li>
+        {% endif %}
+    {% endfor %}
+    <li {% if not pagination.has_next %} class="disabled"{% endif %}>
+        <a href="{% if pagination.has_next %}{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+            &raquo;
+        </a>
+    </li>
+</ul>
+</div>
+{% endmacro %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <div class="col-xs-6 col-sm-3" align="center">
+                    <img src="{{ url_for('static', filename='images/王硕.jpg')}}" width="200" height="200" alt="Generic placeholder thumbnail" class="img-circle">
+                </div>
+            </ul>
+            <ul class="nav nav-sidebar text-center">
+                <h4>ID</h4>
+                <p>简介</p>
+                <li class="active"><a href="">电影推荐</a></li>
+                <li><a href="">更改密码</a></li>
+            </ul>
+            <ul class="nav nav-sidebar text-center">
+                <li><a href="">注销</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">与你喜好相关的电影</h1>
+
+            {% for post in posts %}
+                <div class="row">
+                    <div class="col-md-3"><img src="{{ url_for('static', filename=post.film_imgpath) }}" width="200" height="200"></div>
+                    <div class="col-md-9">
+                        <a class="strong" style="font-size: 24px" href="http://127.0.0.1:5000/detail/{{ post.film_id }}" >{{ post.film_name }}</a><br>
+                        <small class="font-italic text-primary">{{ post.film_type }}</small>
+                        <p style="font-size: 16px">{{ post.film_content }}</p>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+            {% if posts %}
+            {{ pagination_widget(pagination,'index') }}
+            {% endif %}
+            <br>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg" role="button">More Surprise</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

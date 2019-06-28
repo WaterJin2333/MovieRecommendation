@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="content-block" id="portfolio">
+        <div class="container">
+            <header class="block-heading cleafix">
+                <a href="#" class="btn btn-o btn-lg pull-right">View All</a>
+                <h1>Our Latest Movies</h1>
+                <p>Take a look at some of our recent contributions</p>
+            </header>
+            <section class="block-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a href="{{ url_for('detail', name='recommend') }}" class="recent-work movie1">
+                            <span class="btn btn-o-white">推荐</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ url_for('detail', name='action') }}" class="recent-work movie2">
+                            <span class="btn btn-o-white">动作</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ url_for('detail', name='fiction') }}" class="recent-work movie3">
+                            <span class="btn btn-o-white">科幻</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a href="{{ url_for('detail', name='war') }}" class="recent-work movie4">
+                            <span class="btn btn-o-white">战争</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ url_for('detail', name='love') }}" class="recent-work movie5">
+                            <span class="btn btn-o-white">爱情</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ url_for('detail', name='funny') }}" class="recent-work movie6">
+                            <span class="btn btn-o-white">喜剧</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

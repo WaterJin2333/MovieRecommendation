@@ -1,0 +1,130 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  /*padding: 0;
+  margin: 0;
+  margin-bottom: 60px;*/
+  /* background-position: center center; */
+  background-size: 100% 100%;
+  position: absolute;
+
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 100px 200px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+.smallimg{
+    width: 40px;
+    height: 40px;
+}
+
+
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid #b8daff;
+  border-radius: 0.25rem;
+  color: rgba(55,55,55,0.);
+  background-color: rgba(255,255,255,0.6);
+}
+
+.error {
+    color: red;
+}
+.mt-8,.my-8{
+    margin-top:5rem!important
+}
+.mt-18,.my-8{
+    margin-top:12rem!important
+}
+.mb-8{
+    margin-bottom:5rem!important
+}
+.ml-12{
+    margin-left:23rem!important
+}
+.box-shadow {
+box-shadow: 0 .25rem .75rem rgba(96, 96, 96, .2);
+ }
+.box-shadow-tran{
+box-shadow: 0 .25rem .75rem rgba(96, 96, 96, .2);
+background-color:rgba(255,255,255,.6);
+ }
+ @media (max-width: 767.98px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 56px; /* Height of navbar */
+    bottom: 0;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    background-color: var(--gray-dark);
+    transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  .offcanvas-collapse.open {
+    -webkit-transform: translateX(-1rem);
+    transform: translateX(-1rem); /* Account for horizontal padding on navbar */
+  }
+}
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.intro{
+  position: fixed;
+    left: 60%;
+    height:100px;
+    width: 2000px;
+    bottom:300px;
+    margin-left: -420px;
+    padding: 15px;
+}
+.down-head {
+padding-top:3rem;
+
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.text-white{
+color: #ffffff ;
+}
+

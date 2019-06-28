@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}爱尚电影{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    .x-kankan-detail{
+    position: fixed;
+    left: 50%;
+    color: #fff;
+    text-shadow: #000 3px 3px 8px;
+    font-family: Helvetica, Verdana, "Microsoft YaHei", "Simsun";
+    height:152px;
+    width: 600px;
+    bottom:100px;
+    margin-left: -420px;
+    padding: 15px;
+    background-color: rgba(0,0,0, .6);
+    font-size: 11px;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);
+}
+
+   .x-kankan-motaikuang{
+    position: fixed;
+    left: 50%;
+    color: #fff;
+    text-shadow: #000 3px 3px 8px;
+    font-family: Helvetica, Verdana, "Microsoft YaHei", "Simsun";
+    height:152px;
+    width: 152px;
+    bottom:100px;
+    margin-left: -420px;
+    padding: 15px;
+    background-color: rgba(0,0,0, .6);
+    font-size: 11px;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);
+}
+
+.x-kankan-detail a{
+    color:  #86C2F7;
+    font-weight: bold;
+}
+.x-kankan-title{
+    font-weight: bold;
+    margin-left: -3px;
+    font-size:22px;
+    line-height:22px;
+    margin-bottom:5px !important;
+}
+.x-kankan-starring{
+    filter:glow(color=black,strength=1);
+}
+.x-kankan-desc{
+    /*font-size: 1em;*/
+    filter:glow(color=black,strength=2);
+    font:12px "寰蒋闆呴粦", "瀹嬩綋", Arial, SunSans-Regular, Sans-Serif;
+    line-height:16px;
+}
+</style>
+<div style="position:absolute;left:30px;top:300px">
+    <span id="back" class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="font-size: 100px;color:white;opacity:0.5"></span>
+</div>
+<div style="position:absolute;right:30px;top:300px">
+    <span id="next" class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="font-size: 100px;color:white;opacity:0.5"></span>
+</div>
+
+<!--<div class="jumbotron" style="position:absolute;left:450px;top:500px; background-color: rgba(0,0,0, .6);width:700px;height:200px">-->
+    <!--<div class="row">-->
+        <!--<div style="float:left;margin-right:450px"><p style="font-size:22px;color:white">电影名</p></div>-->
+        <!--<div style="float:left"><p style="font-size:12px;color:white">评分</p></div>-->
+    <!--</div>-->
+        <!--<p style="font-size:12px;color:white">电影简介</p>-->
+    <!--<div class="row">-->
+        <!--<div>-->
+            <!--<p style="font-size:12px;color:white">导演</p>-->
+            <!--<p style="font-size:12px;color:white">主演</p>-->
+            <!--<p style="font-size:12px;color:white">类别</p>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<p style="font-size:22px;color:white">视频推荐</p>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+    <div id="x-kankan-detail" class="x-kankan-detail">
+        <p class="x-kankan-title">
+            <a id="film_name" style="font-size:22px" href="">电影</a>
+            <a id="film_douban" style="text-align:right">豆瓣评分</a>
+        </p>
+        <p id="film_content" class="x-kankan-desc" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+        电影简介
+        </p>
+        <p id="film_director" class="muted x-kankan-starring" style="margin-top:5px;">导演</p>
+        <!--<p class="muted x-kankan-starring">主演</p>-->
+        <p id="film_type" class="muted">剧情</p>
+    </div>
+    <div class="x-kankan-motaikuang"  style="position:absolute;left:1375px">
+        <a data-toggle="modal" data-target="#myModal" style="font-size:22px">
+	        <span>视频推荐</span>
+        </a>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width:800px;height:450px;text-align:center" >
+			<video id="video_path" src=" "  width="800px" height="450px" controls></video>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(function() {
+        $('#next').click(function() {
+            $.ajax({
+                url:'/more',
+                type:'get',
+                success: function(data){
+                    $('#change').attr("background","static"+data.film_bg_path);
+                    $('#film_name').text(data.film_name);
+                    $('#film_name').attr("href","detail/"+data.film_id);
+                    $('#film_douban').text("豆瓣评分"+data.film_douban);
+                    $('#film_content').text(data.film_content);
+                    $('#film_director').text(data.film_director);
+                    $('#film_type').text(data.film_type);
+                    $('#video_path').attr("src","static"+data.video_path);
+
+                }
+            })
+        });
+        $('#back').click(function() {
+            $.ajax({
+                url:'/back',
+                type:'get',
+                success: function(data){
+                    $('#change').attr("background","static"+data.film_bg_path);
+                    $('#film_name').text(data.film_name);
+                    $('#film_name').attr("href","detail/"+data.film_id);
+                    $('#film_douban').text("豆瓣评分"+data.film_douban);
+                    $('#film_content').text(data.film_content);
+                    $('#film_director').text(data.film_director);
+                    $('#film_type').text(data.film_type);
+                    $('#video_path').attr("src","static"+data.video_path);
+
+                }
+            })
+        });
+    })
+
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    })
+</script>
+
+
+{% endblock %}

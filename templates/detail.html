@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import form_field %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-8">
+            <h1>{{ detail.film_name }}</h1>
+            <small class="font-italic text-primary">{{ detail.film_type }}</small>
+            <p style="font-size: 16px">{{ detail.film_content }}</p>
+            <p class="lead mb-0 "><a href="#" class="text-white font-weight-bold text-primary">寻找资源</a></p>
+        </div>
+        <div class="col-md-4">
+            <img src="{{ url_for('static', filename=detail.film_imgpath)}}" height="500px">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-8">
+        <h2>影片资料</h2>
+        <p>导演： {{ detail.film_director }}</p>
+        <p>主演：     {{ detail.film_actor }}</p>
+        <p>地区：    {{ detail.film_area }}</p>
+        <p>上映日期：     {{ detail.film_date }}</p>
+        <p>片长：     {{ detail.film_length }}</p>
+        <p>奖项：     {{ detail.film_award }}</p>
+        <hr>
+
+
+         <!--希望从数据库读取实时评论-->
+        <h2>影评</h2>
+            {% for filmcomment in filmcomments %}
+                <div class="mb-auto">
+                    <div class="mb-1 text-muted">{{ filmcomment.user_name }}</div>
+                        <p class="card-text mb-auto">{{ filmcomment.user_comment }}</p>
+                        <small class="text-muted"><{{ filmcomment.time }}></small>
+                        <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+                </div>
+            {% endfor %}
+
+    </div>
+
+    <div class="col-md-4">
+        <h2>为您推荐</h2>
+
+        <h5 class="mb-0 row">
+            <small class="col-md-3"><a id="11" class="text-primary" href="#">{{ film_dir[1].film_name }}</a></small>
+            <small id="12" class="mb-1 col-md-3">{{ film_dir[1].film_type }}</small>
+            <small id="13"class="mb-1 col-md-3">{{ film_dir[1].film_director }}</small>
+            <small id="14"class="mb-1 col-md-3">{{ film_dir[1].film_douban }}</small>
+            <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+        </h5>
+
+        <h5 class="mb-0 row">
+            <small class="col-md-3"><a id="21" class="text-primary" href="#">{{ film_dir[2].film_name }}</a></small>
+            <small id="22" class="mb-1 col-md-3">{{ film_dir[2].film_type }}</small>
+            <small id="23" class="mb-1 col-md-3">{{ film_dir[2].film_director}}</small>
+            <small id="24" class="mb-1 col-md-3">{{ film_dir[2].film_douban }}</small>
+            <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+        </h5>
+
+        <h5 class="mb-0 row">
+            <small class="col-md-3"><a id="31" class="text-primary" href="#">{{ film_dir[3].film_name }}</a></small>
+            <small id="32" class="mb-1 col-md-3">{{ film_dir[3].film_type }}</small>
+            <small id="33" class="mb-1 col-md-3">{{ film_dir[3].film_director}}</small>
+            <small id="34" class="mb-1 col-md-3">{{ film_dir[3].film_douban }}</small>
+            <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+        </h5>
+
+        <h5 class="mb-0 row">
+            <small class="col-md-3"><a id="41" class="text-primary" href="#">{{ film_dir[4].film_name }}</a></small>
+            <small id="42" class="mb-1 col-md-3">{{ film_dir[4].film_type }}</small>
+            <small id="43" class="mb-1 col-md-3">{{ film_dir[4].film_director}}</small>
+            <small id="44"class="mb-1 col-md-3">{{ film_dir[4].film_douban }}</small>
+            <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+        </h5>
+
+        <h5 class="mb-0 row">
+             <small class="col-md-3"><a id="51" class="text-primary" href="#">{{ film_dir[5].film_name }}</a></small>
+            <small id="52" class="mb-1 col-md-3">{{ film_dir[5].film_type }}</small>
+            <small id="53" class="mb-1 col-md-3">{{ film_dir[5].film_director}}</small>
+            <small id="54" class="mb-1 col-md-3">{{ film_dir[5].film_douban }}</small>
+            <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+        </h5>
+
+        <h5 class="mb-0 row">
+            <small class="col-md-3"><a  id="61" class="text-primary" href="#">{{ film_dir[6].film_name }}</a></small>
+            <small id="62" class="mb-1 col-md-3">{{ film_dir[6].film_type }}</small>
+            <small id="63" class="mb-1 col-md-3">{{ film_dir[6].film_director}}</small>
+            <small id="64" class="mb-1 col-md-3">{{ film_dir[6].film_douban }}</small>
+            <hr style="border:1 dashed #987cb9" width="100%" color="#987cb9" size=1>
+        </h5>
+
+        <button  id="change" class="btn btn-primary ml-12 mt-3" >换一批</button>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(function() {
+        $('#change').click(function() {
+            $.ajax({
+                url:'/more_detail',
+                type:'get',
+                success: function(data){
+                    $('#11').text(data['0']['film_name']);
+                    $('#12').text(data['0']['film_type']);
+                    $('#13').text(data['0']['film_director']);
+                    $('#14').text(data['0']['film_douban']);
+                    $('#21').text(data['1']['film_name']);
+                    $('#22').text(data['1']['film_type']);
+                    $('#23').text(data['1']['film_director']);
+                    $('#24').text(data['1']['film_douban']);
+                    $('#31').text(data['2']['film_name']);
+                    $('#32').text(data['2']['film_type']);
+                    $('#33').text(data['2']['film_director']);
+                    $('#34').text(data['2']['film_douban']);
+                    $('#41').text(data['3']['film_name']);
+                    $('#42').text(data['3']['film_type']);
+                    $('#43').text(data['3']['film_director']);
+                    $('#44').text(data['3']['film_douban']);
+                    $('#51').text(data['4']['film_name']);
+                    $('#52').text(data['4']['film_type']);
+                    $('#53').text(data['4']['film_director']);
+                    $('#54').text(data['4']['film_douban']);
+                    $('#61').text(data['5']['film_name']);
+                    $('#62').text(data['5']['film_type']);
+                    $('#63').text(data['5']['film_director']);
+                    $('#64').text(data['5']['film_douban']);
+
+                }
+            })
+        });
+    })
+</script>
+{% endblock %}

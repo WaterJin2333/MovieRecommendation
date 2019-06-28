@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import form_field %}
+
+{% block content %}
+<body>
+<div class="container">
+      <hr>
+        <hr>
+        <hr>    <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+
+    <form>
+        <input id="input-21" value="0" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
+    </form>
+
+
+
+    <form>
+        {{ form_field(starForm.rating, class='rating') }}
+        {{ starForm.submit() }}
+    </form>
+    <hr>
+    <!--<script>-->
+        <!--jQuery(document).ready(function () {-->
+            <!--$("#input-21d").rating({-->
+                <!--starCaptions: function (val) {-->
+                    <!--if (val < 3) {-->
+                        <!--return val;-->
+                    <!--} else {-->
+                        <!--return 'high';-->
+                    <!--}-->
+                <!--},-->
+                <!--starCaptionClasses: function (val) {-->
+                    <!--if (val < 3) {-->
+                        <!--return 'label label-danger';-->
+                    <!--} else {-->
+                        <!--return 'label label-success';-->
+                    <!--}-->
+                <!--},-->
+                <!--hoverOnClear: false-->
+            <!--});-->
+            <!--var $inp = $('#rating-input');-->
+
+            <!--$inp.rating({-->
+                <!--min: 0,-->
+                <!--max: 5,-->
+                <!--step: 1,-->
+                <!--size: 'lg',-->
+                <!--showClear: false-->
+            <!--});-->
+
+
+        <!--});-->
+    <!--</script>-->
+</div>
+</body>
+{% endblock %}

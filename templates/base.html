@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
+<!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
+<!--[if IE 9]><html class="ie ie9 lte9" lang="en-US"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="noIE" lang="en-US">
+<!--<![endif]-->
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <link rel="icon" href="{{ url_for('static', filename='images/imovie_icon.ico') }}">
+
+    <!-- google fonts -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Alegreya+Sans:regular,italic,bold,bolditalic"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nixie+One:regular,italic,bold,bolditalic"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Alegreya+SC:regular,italic,bold,bolditalic"/>
+
+    <!-- css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" media="screen"/>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/star-rating.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+            <script src="{{ url_for('static', filename='js/star-rating.js') }}"></script>
+    <!--[if lt IE 9]>
+			<script src="{{ url_for('static', filename='js/html5shiv.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/respond.js') }}"></script>
+		<![endif]-->
+
+    <!--[if IE 8]>
+	    	<script src="{{ url_for('static', filename='js/selectivizr.js') }}"></script>
+	    <![endif]-->
+    {% block head %}{% endblock %}
+</head>
+
+<body id="change" background="{{ image_path }}">
+<!--<body id="change" background="{{ image_path }}">-->
+<div>
+    <nav id="hide" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">主页</a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse navbar-right">
+                <form class="navbar-form navbar-left">
+                    <input type="text" placeholder="输入电影名称" class="form-control">
+                    <button type="submit" class="btn btn-success">搜索</button>
+                </form>
+                <li class="nav-item navbar-right">
+                <!--登录则显示用户名，未登录则显示登录-->
+                    {% if session.username %}
+                    <a class="nav-link disabled navbar-brand">{{ session.username }}</a>
+                    <a class="nav-link disabled navbar-brand" href="{{ url_for('recommend') }}">打分</a>
+                    <a class="nav-link disabled navbar-brand" href="{{ url_for('login') }}">退出</a>
+
+                    {% else %}
+                    <a class="nav-link disabled navbar-brand" href="{{ url_for('login') }}">登录</a>
+                    {% endif %}
+                </li>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+</div>
+
+{% for message in get_flashed_messages() %}
+    <div class="alert">
+    {{ message }}
+    </div>
+{% endfor %}
+
+
+
+
+<div id="wrapper">
+    {% block content %}
+    {% endblock %}
+    <!-- #portfolio -->
+
+    {% block contact %}
+    {% endblock %}
+    <!-- #contact -->
+
+    {% block page %}
+    {% endblock %}
+
+
+</div><!-- #footer -->
+
+
+
+
+
+<script src="{{ url_for('static', filename='js/jquery-2.1.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-migrate-1.2.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.actual.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{% block script %}
+{% endblock %}
+</body>
+</html>
